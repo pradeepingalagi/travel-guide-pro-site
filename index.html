@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Guide Pro — Real-Time Travel Translator &amp; Companion</title>
+  <meta name="description" content="Travel Guide Pro is a real-time voice, text, and camera translation app with local travel intelligence, emergency info, currency conversion, and weather forecasts." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%234f46e5'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23fff' stroke-width='3'/%3E%3Cellipse cx='32' cy='32' rx='8' ry='18' fill='none' stroke='%23fff' stroke-width='2.5'/%3E%3Cline x1='14' y1='32' x2='50' y2='32' stroke='%23fff' stroke-width='2.5'/%3E%3C/svg%3E" />
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #020617;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+    a {
+      color: #818cf8;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .nav {
+      border-bottom: 1px solid #1e293b;
+      background: rgba(2, 6, 23, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .hero {
+      padding-bottom: 40px;
+      border-bottom: 1px solid #1e293b;
+    }
+    .badge {
+      display: inline-block;
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #818cf8;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-size: 40px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 16px 0;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+    .subtitle {
+      font-size: 18px;
+      color: #cbd5e1;
+      max-width: 720px;
+      margin: 0 0 28px 0;
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: #4f46e5;
+      color: #ffffff;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .btn-primary:hover {
+      background: #4338ca;
+      text-decoration: none;
+    }
+    .btn-secondary {
+      display: inline-block;
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #e2e8f0;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .btn-secondary:hover {
+      border-color: #6366f1;
+      text-decoration: none;
+    }
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 44px 0 16px;
+      letter-spacing: -0.02em;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 16px;
+    }
+    .card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 22px;
+    }
+    .card h3 {
+      margin: 0 0 8px 0;
+      font-size: 17px;
+      color: #f8fafc;
+    }
+    .card p {
+      margin: 0;
+      font-size: 14px;
+      color: #94a3b8;
+    }
+    .info-box {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-left: 4px solid #6366f1;
+      border-radius: 12px;
+      padding: 22px;
+      margin-top: 20px;
+    }
+    .info-box p, .info-box li {
+      color: #cbd5e1;
+      font-size: 15px;
+    }
+    .info-box ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
+    }
+    .info-box li {
+      margin-bottom: 6px;
+    }
+    .footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid #1e293b;
+      font-size: 13px;
+      color: #64748b;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="./index.html" style="text-decoration:none;">
+        <svg width="34" height="34" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#4f46e5"/><circle cx="32" cy="32" r="18" fill="none" stroke="#fff" stroke-width="3"/><ellipse cx="32" cy="32" rx="8" ry="18" fill="none" stroke="#fff" stroke-width="2.5"/><line x1="14" y1="32" x2="50" y2="32" stroke="#fff" stroke-width="2.5"/></svg>
+        <span>Travel Guide Pro</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="#features">Features</a>
+        <a href="#google-auth">Data &amp; Google Sign-In</a>
+        <a href="./privacy.html">Privacy Policy</a>
+        <a href="./delete-account.html">Account Deletion</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="badge">Translate. Explore. Navigate. Travel with confidence.</div>
+      <h1>Travel Guide Pro</h1>
+      <p class="subtitle">
+        <strong>Travel Guide Pro</strong> is a cross-platform AI travel translator and destination companion available on Web, Android, and iOS. It helps international travelers communicate across languages in real time, read foreign signs and menus with their camera, check bills, and access essential local safety and travel intelligence anywhere in the world.
+      </p>
+      <div class="cta-row">
+        <a class="btn-primary" href="./privacy.html">Read Privacy Policy</a>
+        <a class="btn-secondary" href="./delete-account.html">Account &amp; Data Deletion</a>
+      </div>
+    </section>
+
+    <section id="features">
+      <h2>Purpose &amp; Core Features of Travel Guide Pro</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Real-Time Voice &amp; Text Translation</h3>
+          <p>Hold-to-speak and two-way live conversation translation across 100+ languages with natural text-to-speech playback for effortless communication with locals.</p>
+        </div>
+        <div class="card">
+          <h3>Camera &amp; Receipt OCR Translation</h3>
+          <p>Point your camera or upload photos of street signs, transit boards, restaurant menus, and receipts to translate text instantly and verify itemized bills.</p>
+        </div>
+        <div class="card">
+          <h3>Local Travel Intelligence</h3>
+          <p>View destination-aware safety alerts, nearest emergency hospitals, local emergency phone numbers, tipping customs, and neighborhood travel insights.</p>
+        </div>
+        <div class="card">
+          <h3>Live Currency &amp; Weather</h3>
+          <p>Built-in live exchange rate converter powered by European Central Bank benchmark rates alongside real-time local weather conditions and forecasts.</p>
+        </div>
+        <div class="card">
+          <h3>Offline Phrasebook</h3>
+          <p>Access categorized travel phrases for dining, transit, medical emergencies, and lodging—saved locally on your device even when mobile data is unavailable.</p>
+        </div>
+        <div class="card">
+          <h3>Cross-Platform Companion</h3>
+          <p>Designed for seamless use on mobile web browsers (PWA), Android devices, and iOS devices with a clean, traveler-friendly interface.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="google-auth">
+      <h2>How Travel Guide Pro Uses Google Sign-In &amp; User Data</h2>
+      <div class="info-box">
+        <p>
+          <strong>Optional Account Sign-In:</strong> Travel Guide Pro uses Firebase Authentication to allow users to optionally sign in with Google.
+        </p>
+        <ul>
+          <li><strong>Requested Scopes Only:</strong> Only basic identity scopes (<code>openid</code>, <code>email</code>, and <code>profile</code>) are requested so the app can display your name, email address, and profile avatar in your account settings.</li>
+          <li><strong>No Sensitive Google Workspace Access:</strong> Travel Guide Pro does <strong>not</strong> request access to Google Drive, Gmail, Google Calendar, or Contacts.</li>
+          <li><strong>Ephemeral Translation Processing:</strong> Audio recordings and camera images used for translation are processed in real time and are not sold or used for third-party advertising.</li>
+          <li><strong>Full User Control:</strong> You can erase your local history or permanently delete your account at any time inside the app or via our <a href="./delete-account.html">Account &amp; Data Deletion page</a>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Developer &amp; Support Contact</h2>
+      <p style="color:#94a3b8; font-size:15px;">
+        <strong>Application Name:</strong> Travel Guide Pro<br />
+        <strong>Developer Support Email:</strong> <a href="mailto:pradeep.ingalagi@gmail.com">pradeep.ingalagi@gmail.com</a><br />
+        <strong>Privacy Policy:</strong> <a href="./privacy.html">Privacy Policy</a>
+      </p>
+    </section>
+
+    <footer class="footer">
+      <div>&copy; 2026 Travel Guide Pro. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="./index.html">Home</a>
+        <a href="./privacy.html">Privacy Policy</a>
+        <a href="./delete-account.html">Delete Account</a>
+        <a href="mailto:pradeep.ingalagi@gmail.com">Contact Support</a>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
